@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native';
 import TeachrCard from './components/TeachrCard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
-
 
 
 export default function App() {
@@ -30,39 +29,47 @@ export default function App() {
   }, []);
 
   const teachrsList = teachrs.map((teachr,  index) =>
-  <TeachrCard key={index} prenom={teachr.prenom}/>
+  <TeachrCard key={index} index={index} prenom={teachr.prenom}/>
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <FontAwesomeIcon icon={faAngleLeft} color={'white'} size={32}/>
-        <Text style={styles.headerTitle}>Teach'rs favoris</Text>
+        <FontAwesomeIcon style={styles.verticalMargin} icon={faAngleLeft} color={'white'} size={32}/>
+        <Text style={[styles.verticalMargin, styles.headerTitle]}>Teach'rs favoris</Text>
       </View>
-      <View style={styles.cardWrapper}>{teachrsList}</View>
+      <View style={styles.cardWrapper}>
+        <ScrollView horizontal >{teachrsList}</ScrollView>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header: {
-    width:"100%",
-    height: 150,
-    textAlign: "center",
-    backgroundColor: "#076ec0",
-    padding: { top: StatusBar.currentHeight + 10,
-    
-    }
+  verticalMargin: {
+    marginTop: 30,
   },
+  header: {
+    flex: 1,
+    width:"100%",
+    backgroundColor: "#076ec0",
+    paddingTop: StatusBar.currentHeight + 25,
+    paddingLeft: 25,
+  }, 
   headerTitle: {
     color:"white",
     fontSize:32,
-    
   },
   cardWrapper: {
+    flex: 3,
+    flexDirection: "row",
+    overflow: "scroll",
+    paddingVertical: 20,
+    paddingLeft: 15, 
   },
 });
