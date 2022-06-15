@@ -4,7 +4,7 @@ import { orientationDetection } from "./OrientationDetection";
 
 
 export default function TeachrCard(props){
-    const localhostIP = "192.168.1.144"
+    const localhostIP = "000.000.0.000"
     const orientation = orientationDetection()
 
 

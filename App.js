@@ -11,7 +11,7 @@ import { orientationDetection } from './components/OrientationDetection';
 export default function App() {
   const [isLoading, setLoading] = React.useState(true);
   const [teachrs, setTeachrs] = React.useState([]);
-  const localhostIP = "192.168.1.144"  // to test the API in localhost your IPAddress is required (you can get it by tiping 'ipcongif' in cmd)
+  const localhostIP = "000.000.0.000"  // to test the API in localhost your IPAddress is required (you can get it by tiping 'ipcongif' in cmd)
   const isCarousel = React.useRef(null)
   const orientation = orientationDetection()
   const SLIDER_WIDTH = orientation === 'PORTRAIT' ? Dimensions.get('window').width - 110 : Dimensions.get('window').width - 300
