@@ -3,7 +3,7 @@
     "name": "teachr_front-end",
     "slug": "teachr_front-end",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

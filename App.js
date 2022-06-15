@@ -5,7 +5,7 @@ import TeachrCard from './components/TeachrCard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
 import Carousel from 'react-native-snap-carousel'; // the warning messege ViewPropTypes will be removed come from here!!
-import ViewPropTypes from 'deprecated-react-native-prop-types'
+import { orientationDetection } from './components/OrientationDetection';
 
 
 export default function App() {
@@ -13,8 +13,9 @@ export default function App() {
   const [teachrs, setTeachrs] = React.useState([]);
   const localhostIP = "192.168.1.144"  // to test the API in localhost your IPAddress is required (you can get it by tiping 'ipcongif' in cmd)
   const isCarousel = React.useRef(null)
-  const SLIDER_WIDTH = Dimensions.get('window').width - 150
-  const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1.1)
+  const orientation = orientationDetection()
+  const SLIDER_WIDTH = orientation === 'PORTRAIT' ? Dimensions.get('window').width - 110 : Dimensions.get('window').width - 300
+  const ITEM_WIDTH = Math.round(SLIDER_WIDTH )
 
   const getTeachrs = async () => {
     try {
@@ -44,11 +45,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <FontAwesomeIcon style={styles.verticalMargin} icon={faAngleLeft} color={'white'} size={32}/>
-        <Text style={[styles.verticalMargin, styles.headerTitle]}>Teach'rs favoris</Text>
+      <View style={[styles.header, {flexDirection: orientation === 'PORTRAIT' ? 'column' : 'row', paddingTop: orientation === 'PORTRAIT' ? StatusBar.currentHeight + 25 : StatusBar.currentHeight ,}]}>
+        <FontAwesomeIcon style={{marginTop: orientation === 'PORTRAIT' ? 30 : 0,}} icon={faAngleLeft} color={'white'} size={32}/>
+        <Text style={[styles.headerTitle, {marginTop: orientation === 'PORTRAIT' ? 30 : 0, paddingVertical: orientation === 'PORTRAIT' ? 20 : 0,}]}>Teach'rs favoris</Text>
       </View>
-      <View style={styles.cardWrapper}>
+      <View style={[styles.cardWrapper, {flex: orientation === 'PORTRAIT' ? 3 : 5,}]}>
         <Carousel
                 style={styles}
                 ref={isCarousel}
@@ -71,14 +72,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  verticalMargin: {
-    marginTop: 30,
-  },
   header: {
+    
     flex: 1,
     width:"100%",
     backgroundColor: "#076ec0",
-    paddingTop: StatusBar.currentHeight + 25,
+    
     paddingLeft: 25,
   }, 
   headerTitle: {
@@ -86,10 +85,9 @@ const styles = StyleSheet.create({
     fontSize:32,
   },
   cardWrapper: {
-    flex: 3,
     flexDirection: "row",
     overflow: "scroll",
-    paddingVertical: 20,
+    
     paddingLeft: 15, 
   },
 });

@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight, Image } from "react-native";
+import { orientationDetection } from "./OrientationDetection";
+
 
 export default function TeachrCard(props){
     const teachrsInfos = [
@@ -60,25 +62,27 @@ export default function TeachrCard(props){
         },
         
     ]
+  const orientation = orientationDetection()
+
 
     return (
-        <View style={styles.cardWrapper}>
-            <View style={styles.cardContainer}>
+        <View style={[styles.cardWrapper, {width: orientation === 'PORTRAIT' ? 270 : 450, marginTop: orientation === 'PORTRAIT' ? 30 : 20, }]}>
+            <View style={[styles.cardContainer, {paddingTop: orientation === 'PORTRAIT' ? 30 : 15, paddingHorizontal: orientation === 'PORTRAIT' ? 25 : 10, paddingBottom: orientation === 'PORTRAIT' ? 45 : 20}]}>
                 <View>
-                    <View style={styles.teachr}>
+                    <View style={[styles.teachr, {marginBottom:  orientation === 'PORTRAIT' ? 30 : 15,}]}>
                         <Image style={styles.teachrPhoto} source={teachrsInfos[props.index].photo}/>
                         <Text style={styles.teachrName}>{props.prenom}</Text>
                     </View>
-                    <View style={styles.teachrInfoWrapper}>
+                    <View style={{marginBottom:  orientation === 'PORTRAIT' ? 30 : 15,}}>
                         <Text style={styles.teachrInfoTitle}>Formation</Text>
                         <Text style={styles.teachrInfoText}>{teachrsInfos[props.index].formation}</Text>
                     </View>
-                    <View style={styles.teachrInfoWrapper}>
+                    <View style={{marginBottom:  orientation === 'PORTRAIT' ? 30 : 15,}}>
                         <Text style={styles.teachrInfoTitle}>Description</Text>
                         <Text style={styles.teachrInfoText}>{teachrsInfos[props.index].description}</Text>
                     </View>
                 </View>
-                <View>
+                <View style={[{flexDirection:  orientation === 'PORTRAIT' ? "column" : "row", justifyContent:  orientation === 'PORTRAIT' ? "flex-start" : "space-around",}]}>
                     <TouchableHighlight style={[styles.cardButton, styles.blueButton]} >
                         <Text style={styles.blueButtonText}>Prendre un cours avec ce Teach'r</Text>
                     </TouchableHighlight>
@@ -95,7 +99,7 @@ export default function TeachrCard(props){
 const styles = StyleSheet.create({
     cardWrapper: {
         width: 270,
-        height: "90%",
+        height: "85%",
         borderRadius: 10,
         backgroundColor: 'transparent',
         shadowColor: "#000",
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10,
-        marginVertical: 20,
+        
         marginHorizontal: 15,
     },
     cardContainer: {
@@ -116,14 +120,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 10,
         overflow: 'hidden',
-        paddingTop: 30,
-        paddingHorizontal: 25,
-        paddingBottom: 45,
+        
+        
+        
     },
     teachr: {
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 30,
+        
     },
     teachrPhoto: {
         width: 50,
@@ -133,9 +137,6 @@ const styles = StyleSheet.create({
     },
     teachrName: {
         fontSize: 22,
-    },
-    teachrInfoWrapper: {
-        marginBottom: 30,
     },
     teachrInfoTitle: {
         fontSize: 16,
