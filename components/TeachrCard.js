@@ -4,43 +4,8 @@ import { orientationDetection } from "./OrientationDetection";
 
 
 export default function TeachrCard(props){
-    const teachrsInfos = [
-        {
-            "photo": require("../assets/photos/avatar-6e099274d7f7f82d267b3185604cfdf8.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-06c6c598c8eb3741b19afc5ae4c284b1.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-52e877ea3219207c15f797940273b415.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-055f78ee81462fe7fb426182a27b5181.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-194f05142ad2718895847a1cefa68ae0.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-533e951fc62a26a45638740bf5423e52.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-913a3831f4c22837cfaad013d2d19faf.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-1432ff1cd4c85f2228e4d554b22cd574.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-5936350c79b20f65dae54989df38dea6.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-811625483afad60806481e9cc3b50a23.jpg"),
-        },
-        {
-            "photo": require("../assets/photos/avatar-e69ed3b6dc7d618f94895bea595b9ced.jpg"),
-        },
-        
-    ]
-  const orientation = orientationDetection()
+    const localhostIP = "192.168.1.144"
+    const orientation = orientationDetection()
 
 
     return (
@@ -48,7 +13,7 @@ export default function TeachrCard(props){
             <View style={[styles.cardContainer, {paddingTop: orientation === 'PORTRAIT' ? 30 : 15, paddingHorizontal: orientation === 'PORTRAIT' ? 25 : 10, paddingBottom: orientation === 'PORTRAIT' ? 45 : 20}]}>
                 <View>
                     <View style={[styles.teachr, {marginBottom:  orientation === 'PORTRAIT' ? 30 : 15,}]}>
-                        <Image style={styles.teachrPhoto} source={teachrsInfos[props.index].photo}/>
+                        <Image style={styles.teachrPhoto} source={{uri: 'http://' + localhostIP + ':8000/' + props.photo}}/>
                         <Text style={styles.teachrName}>{props.prenom}</Text>
                     </View>
                     <View style={{marginBottom:  orientation === 'PORTRAIT' ? 30 : 15,}}>
